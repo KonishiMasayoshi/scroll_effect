@@ -9,14 +9,53 @@
 <meta name="format-detection" content="telephone=no">
 <link rel="stylesheet" href="css/default.css">
 <style>
+@-webkit-keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {
+		-webkit-transform:translateY(0);
+		transform:translateY(0);
+	}
+	40% {
+		-webkit-transform:translateY(-30px);
+		transform:translateY(-30px);
+	}
+	60% {
+		-webkit-transform:translateY(-15px);
+		transform:translateY(-15px);
+	}
+}
 
-@media screen and (max-width:950px){
+@keyframes bounce {
+	0%, 20%, 50%, 80%, 100% {
+		-webkit-transform:translateY(0);
+		-ms-transform:translateY(0);
+		transform:translateY(0);
+	}
+	40% {
+		-webkit-transform:translateY(-30px);
+		-ms-transform:translateY(-30px);
+		transform:translateY(-30px);
+	}
+	60% {
+		-webkit-transform:translateY(-15px);
+		-ms-transform:translateY(-15px);
+		transform:translateY(-15px);
+	}
+}
+
+.animatio_bounce{
+	-webkit-animation-name:bounce;
+	animation-name:bounce;
+	animation-duration:1s;
+	animation-iteration-count:10;
+	animation-fill-mode:forwards;
+	animation-delay:5s;
 }
 </style>
 </head>
 <body>
 	<main id="container">
-		
+		<img src="https://www.ala-mode.jp/img/item/thumbnail/600/sawa-8288.jpg" width="200" class="scroll_effect animatio_bounce" data-scroll-effect-animation-class="animatio_bounce" data-scroll-effect-animation-delay="2s"><br><br><br>
+		<img src="https://www.ala-mode.jp/img/item/thumbnail/600/sawa-8288.jpg" width="200" class="scroll_effect" data-scroll-effect-animation-class="animatio_bounce" data-scroll-effect-animation-delay="2s"><br>
 	</main>
 	
 	<!-- lib -->
@@ -29,13 +68,13 @@
 		posDisplay:300, 
 		speedDisplay:300 
 	};
-	$.fn.scrollShow = function(options){
+	$.fn.scrollEffect = function(options){
 		let 
 		el = this, 
 		lenEl = el.length;
 		if(lenEl === 0)return this;
 		if(lenEl > 1){
-			el.each(function(){$(this).scrollShow(options)});
+			el.each(function(){$(this).scrollEffect(options)});
 			return this;
 		}
 		let 
