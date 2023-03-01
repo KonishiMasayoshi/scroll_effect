@@ -65,30 +65,41 @@
 (function($){
 	const 
 	defaults = {
-		posDisplay:300, 
-		speedDisplay:300 
+		defaultAnimationDuration:'1s', 
+		defaultAnimationIterationCount:'1', 
+		defaultAnimationFillMode:'forwards', 
+		defaultAnimationDelay:'5s' 
 	};
 	$.fn.scrollEffect = function(options){
 		let 
 		el = this, 
 		lenEl = el.length;
-		if(lenEl === 0)return this;
+		if(lenEl === 0)
+		return this;
 		if(lenEl > 1){
-			el.each(function(){$(this).scrollEffect(options)});
+			el.each(function(){
+				$(this).scrollEffect(options);
+			});
 			return this;
 		}
 		let 
 		configs = {}, 
-		flagDisplay = 0, 
-		funcInit = function(){
-			configs = $.extend({}, defaults, options);
+		posEl = 0, 
+		funcInit = () => {
+			configs = $.extend(
+				{}, 
+				defaults, 
+				options 
+			);
 			funcAddEventListener();
 			funcDestructor();
 		}, 
 		funcAddEventListener = () => {
-			$(window).on(
-				'load scroll', 
-				() => {
+			$(window).on({
+				'load':() => {
+					posEl = el.offset().top;
+				}, 
+				'scroll.scrollEffect':() => {
 					const 
 					scrollTop = $(window).scrollTop();
 					if(
@@ -106,7 +117,7 @@
 						el.stop().fadeOut(configs.speedDisplay);
 					}
 				} 
-			);
+			});
 		}, 
 		funcDestructor = () => {
 			lenEl = 
