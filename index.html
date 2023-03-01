@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>スクロールエフェクト</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<meta name="viewport" content="width=device-width,minimum-scale=1,initial-scale=1">
+<meta name="format-detection" content="telephone=no">
+<link rel="stylesheet" href="css/default.css">
+<style>
+
+@media screen and (max-width:950px){
+}
+</style>
+</head>
+<body>
+	<main id="container">
+		
+	</main>
+	
+	<!-- lib -->
+	<script src="libs/jquery/3.4.1/jquery.min.js"></script>
+	<script>
+/*----------------------------- scroll_effect -----------------------------*/
+(function($){
+	const 
+	defaults = {
+		posDisplay:300, 
+		speedDisplay:300 
+	};
+	$.fn.scrollShow = function(options){
+		let 
+		el = this, 
+		lenEl = el.length;
+		if(lenEl === 0)return this;
+		if(lenEl > 1){
+			el.each(function(){$(this).scrollShow(options)});
+			return this;
+		}
+		let 
+		configs = {}, 
+		flagDisplay = 0, 
+		funcInit = function(){
+			configs = $.extend({}, defaults, options);
+			funcAddEventListener();
+			funcDestructor();
+		}, 
+		funcAddEventListener = () => {
+			$(window).on(
+				'load scroll', 
+				() => {
+					const 
+					scrollTop = $(window).scrollTop();
+					if(
+						flagDisplay === 0 && 
+						configs.posDisplay <= scrollTop 
+					){
+						flagDisplay = 1;
+						el.stop().fadeIn(configs.speedDisplay);
+					}else 
+					if(
+						flagDisplay === 1 && 
+						configs.posDisplay > scrollTop 
+					){
+						flagDisplay = 0;
+						el.stop().fadeOut(configs.speedDisplay);
+					}
+				} 
+			);
+		}, 
+		funcDestructor = () => {
+			lenEl = 
+			funcInit = 
+			funcAddEventListener = void 0;
+		};
+		funcInit();
+		return this;
+	};
+})(jQuery);
+/*----------------------------- /scroll_effect -----------------------------*/
+(function($){
+	$(document).ready(function(){
+		
+	});
+})(jQuery);
+	</script>
+</body>
+</html>
