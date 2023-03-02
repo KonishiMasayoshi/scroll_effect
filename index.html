@@ -54,8 +54,8 @@
 </head>
 <body>
 	<main id="container">
-		<img src="https://www.ala-mode.jp/img/item/thumbnail/600/sawa-8288.jpg" width="200" class="scroll_effect animatio_bounce" data-scroll-effect-animation-class="animatio_bounce" data-scroll-effect-animation-delay="2s"><br><br><br>
-		<img src="https://www.ala-mode.jp/img/item/thumbnail/600/sawa-8288.jpg" width="200" class="scroll_effect" data-scroll-effect-animation-class="animatio_bounce" data-scroll-effect-animation-delay="2s"><br>
+		<img src="img/image.jpg" width="300" height="250" loading="lazy" class="scroll_effect animatio_bounce" data-scroll-effect-animation-class="animatio_bounce" data-scroll-effect-animation-delay="2s"><br><br><br><br><br><br>
+		<img src="img/image.jpg" width="300" height="250" loading="lazy" class="scroll_effect" data-scroll-effect-animation-class="animatio_bounce" data-scroll-effect-animation-delay="2s"><br>
 	</main>
 	
 	<!-- lib -->
@@ -102,6 +102,10 @@
 				'scroll.scrollEffect':() => {
 					const 
 					scrollTop = $(window).scrollTop();
+					console.log([
+						scrollTop, 
+						posEl 
+					]);
 					if(
 						flagDisplay === 0 && 
 						configs.posDisplay <= scrollTop 
