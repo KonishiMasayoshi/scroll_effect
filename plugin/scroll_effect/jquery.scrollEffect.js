@@ -44,6 +44,7 @@ data-scroll-effect-animation-delay => 				"アニメーションを遅らせる�
 		//初期実行用関数
 		funcInit = () => {
 			funcPutVar();
+			funcInitCss();
 			funcAddEventListener();
 			funcDestructor0();
 		}, 
@@ -56,25 +57,34 @@ data-scroll-effect-animation-delay => 				"アニメーションを遅らせる�
 			);
 			indexEl = $(configs.elementTarget).index(el);
 		}, 
+		//CSS初期化
+		funcInitCss = () => {
+			const 
+			dataAnimationDuration = el.attr('data-scroll-effect-animation-duration'), 
+			dataAnimationIterationCount = el.attr('data-scroll-effect-animation-iteration-count'), 
+			dataAnimationFillMode = el.attr('data-scroll-effect-animation-fill-mode'), 
+			dataAnimationDelay = el.attr('data-scroll-effect-animation-delay');
+			el.css({
+				'visibility':'hidden', 
+				'-webkit-animation-name':'none', 
+				'animation-name':'none', 
+				'animation-duration':typeof dataAnimationDuration === 'string'?dataAnimationDuration:configs.defaultAnimationDuration, 
+				'animation-iteration-count':typeof dataAnimationIterationCount === 'string'?dataAnimationIterationCount:configs.defaultAnimationIterationCount, 
+				'animation-fill-mode':typeof dataAnimationFillMode === 'string'?dataAnimationFillMode:configs.defaultAnimationFillMode, 
+				'animation-delay':typeof dataAnimationDelay === 'string'?dataAnimationDelay:configs.defaultAnimationDelay 
+			});
+		}, 
 		//イベントリスナー追加用関数
 		funcAddEventListener = () => {
 			const 
 			win = $(window), 
 			//アニメーションのCSSプロパティ付与用関数
 			funcPutCssAnimate = () => {
-				let 
-				dataAnimationName = el.attr('data-scroll-effect-animation-name'), 
-				dataAnimationDuration = el.attr('data-scroll-effect-animation-duration'), 
-				dataAnimationIterationCount = el.attr('data-scroll-effect-animation-iteration-count'), 
-				dataAnimationFillMode = el.attr('data-scroll-effect-animation-fill-mode'), 
-				dataAnimationDelay = el.attr('data-scroll-effect-animation-delay');
+				const 
+				dataAnimationName = el.attr('data-scroll-effect-animation-name');
 				el.css({
 					'-webkit-animation-name':typeof dataAnimationName === 'string'?dataAnimationName:configs.defaultAnimationName, 
-					'animation-name':typeof dataAnimationName === 'string'?dataAnimationName:configs.defaultAnimationName, 
-					'animation-duration':typeof dataAnimationDuration === 'string'?dataAnimationDuration:configs.defaultAnimationDuration, 
-					'animation-iteration-count':typeof dataAnimationIterationCount === 'string'?dataAnimationIterationCount:configs.defaultAnimationIterationCount, 
-					'animation-fill-mode':typeof dataAnimationFillMode === 'string'?dataAnimationFillMode:configs.defaultAnimationFillMode, 
-					'animation-delay':typeof dataAnimationDelay === 'string'?dataAnimationDelay:configs.defaultAnimationDelay 
+					'animation-name':typeof dataAnimationName === 'string'?dataAnimationName:configs.defaultAnimationName 
 				});
 			}, 
 			//スクロール量と要素の位置確認用関数
@@ -92,6 +102,15 @@ data-scroll-effect-animation-delay => 				"アニメーションを遅らせる�
 					funcRemoveEventListener(indexEl);
 				}
 			};
+			el.on(
+				'animationstart', 
+				() => {
+					el
+					.css({
+						'visibility':'visible' 
+					});
+				} 
+			);
 			win.on(
 				'load.scrollEffect' + indexEl + ' scroll.scrollEffect' + indexEl, 
 				funcConfirmScroll 
@@ -108,6 +127,7 @@ data-scroll-effect-animation-delay => 				"アニメーションを遅らせる�
 			lenEl = 
 			funcInit = 
 			funcPutVar = 
+			funcInitCss = 
 			funcAddEventListener = 
 			funcDestructor0 = void 0;
 		}, 
