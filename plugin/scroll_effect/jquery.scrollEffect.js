@@ -65,7 +65,6 @@ data-scroll-effect-animation-delay => 				"アニメーションを遅らせる�
 			dataAnimationFillMode = el.attr('data-scroll-effect-animation-fill-mode'), 
 			dataAnimationDelay = el.attr('data-scroll-effect-animation-delay');
 			el.css({
-				'visibility':'hidden', 
 				'-webkit-animation-name':'none', 
 				'animation-name':'none', 
 				'animation-duration':typeof dataAnimationDuration === 'string'?dataAnimationDuration:configs.defaultAnimationDuration, 
@@ -102,6 +101,7 @@ data-scroll-effect-animation-delay => 				"アニメーションを遅らせる�
 					funcRemoveEventListener(indexEl);
 				}
 			};
+			if(el.css('visibility') === 'hidden')
 			el.on(
 				'animationstart', 
 				() => {
